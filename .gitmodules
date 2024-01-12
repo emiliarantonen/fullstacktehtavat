@@ -1,0 +1,3 @@
+[submodule "osa3/fullstack_osa3"]
+	path = osa3/fullstack_osa3
+	url = https://github.com/emiliarantonen/fullstack_osa3
