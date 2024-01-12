@@ -29,34 +29,34 @@ const App = () => {
   const addPerson = (event, id) => {
     event.preventDefault()
     const newPerson = {id: id, name: newName, number: newNumber}
-    // const nameExists = persons.some((person) => person.name === newName)
-    // const person = persons.find(p => p.name === newName)
-    // console.log(person)
+    const nameExists = persons.some((person) => person.name === newName)
+    const person = persons.find(p => p.name === newName)
+    console.log(person)
 
-    // if (nameExists) {
-    //   window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)
-    //   const updatedPerson = {...person, number: newNumber}
-    //   personService
-    //   .update(person.id, updatedPerson)
-    //   .then(returnedPerson => {
-    //     setPersons(persons.map(person => person.id !== id ? person : returnedPerson))
-    //   setNotification({
-    //     text: `Updated ${newName}`,
-    //     type: 'message'
-    //   })
-    //   setTimeout(() => {
-    //     setNotification(null)
-    //     window.location.reload()
-    //   }, 5000)
-    //   setNewName('')
-    //   setNewNumber('')
-    //   })
-    //   .catch(error=>{
-    //   setNotification({
-    //     text: `Information of ${newName} has already been removed from the server`,
-    //     type: 'error'
-    //   })
-    // })} else {
+    if (nameExists) {
+      window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)
+      const updatedPerson = {...person, number: newNumber}
+      personService
+      .update(person.id, updatedPerson)
+      .then(returnedPerson => {
+        setPersons(persons.map(person => person.id !== id ? person : returnedPerson))
+      setNotification({
+        text: `Updated ${newName}`,
+        type: 'message'
+      })
+      setTimeout(() => {
+        setNotification(null)
+        window.location.reload()
+      }, 5000)
+      setNewName('')
+      setNewNumber('')
+      })
+      .catch(error=>{
+      setNotification({
+        text: `Information of ${newName} has already been removed from the server`,
+        type: 'error'
+      })
+    })} else {
 
     personService
       .create(newPerson)
@@ -73,7 +73,7 @@ const App = () => {
       }, 5000)
     })
   }
-
+  }
 
 
   const deletePersonTest = async (id)=>{
