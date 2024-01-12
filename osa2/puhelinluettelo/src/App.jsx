@@ -26,55 +26,76 @@ const App = () => {
   }, [])
   console.log('render', persons.length, 'persons')
 
-  const addPerson = (event, id) => {
-    event.preventDefault()
-    const newPerson = {id: id, name: newName, number: newNumber}
-    const nameExists = persons.some((person) => person.name === newName)
-    const person = persons.find(p => p.name === newName)
-    console.log(person)
-
-    if (nameExists) {
-      window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)
-      const updatedPerson = {...person, number: newNumber}
+  const addPerson = (event) => {
+    event.preventDefault();
+  
+    const existingPerson = persons.find((person) => person.name === newName);
+  
+    if (existingPerson) {
+      const confirmed = window.confirm(
+        `${newName} is already added to phonebook, replace the old number with a new one?`
+      )
+  
+      if (confirmed) {
+        const updatedPerson = { ...existingPerson, number: newNumber };
+  
+        personService
+          .update(existingPerson.id, updatedPerson)
+          .then((returnedPerson) => {
+            setPersons((persons) =>
+              persons.map((p) => (p.id !== existingPerson.id ? p : returnedPerson))
+            )
+            setNotification({
+              text: `Updated ${newName}`,
+              type: 'message',
+            })
+            setTimeout(() => {
+              setNotification(null)
+              window.location.reload()
+            }, 5000);
+          })
+          .catch((error) => {
+            setNotification({
+              text: `Information of ${newName} has already been removed from the server`,
+              type: 'error',
+            });
+          });
+      }
+    } else {
+      const personObject = { name: newName, number: newNumber }
+  
       personService
-      .update(person.id, updatedPerson)
+      .create(personObject)
       .then(returnedPerson => {
-        setPersons(persons.map(person => person.id !== id ? person : returnedPerson))
-      setNotification({
-        text: `Updated ${newName}`,
-        type: 'message'
-      })
-      setTimeout(() => {
-        setNotification(null)
-        window.location.reload()
-      }, 5000)
-      setNewName('')
-      setNewNumber('')
-      })
-      .catch(error=>{
-      setNotification({
-        text: `Information of ${newName} has already been removed from the server`,
-        type: 'error'
-      })
-    })} else {
-
-    personService
-      .create(newPerson)
-      .then(returnedPerson => {
+        console.log('moi')
         setPersons(persons.concat(returnedPerson))
+        setNotification({
+          text: `Added ${personObject.name} to phonebook`,
+          type: 'message'
+        })
         setNewName('')
         setNewNumber('')
-        setNotification({
-        text: `Added ${newName}`,
-        type: 'message'
+        setTimeout(() => {
+          setNotification(null)
+          window.location.reload()
+        }, 5000)
       })
-      setTimeout(() => {
-        setNotification(null)
-      }, 5000)
-    })
-  }
-  }
+      .catch(error => {
+        setNotification({
+          text: error.response.data.error,
+          type: 'error'
+        })
+        console.log(error.response.data);
+        
+        setTimeout(() => {
+          setNotification(null)
+          window.location.reload()
+        },5000)
+      })
+    }
 
+    }
+  
 
   const deletePersonTest = async (id)=>{
     const person = persons.find(p => p.id === id)
