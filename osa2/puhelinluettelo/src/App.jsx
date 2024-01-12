@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
 import Filter from './components/Filter'
 import Numbers from './components/Numbers'
 import PersonForm from './components/PersonForm'
@@ -54,7 +53,7 @@ const App = () => {
               window.location.reload()
             }, 5000);
           })
-          .catch((error) => {
+          .catch(() => {
             setNotification({
               text: `Information of ${newName} has already been removed from the server`,
               type: 'error',

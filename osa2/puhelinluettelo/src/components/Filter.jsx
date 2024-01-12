@@ -1,9 +1,9 @@
 
 
-const Filter= ({filter, handleFilter})=>{
+const Filter= ({ filter, handleFilter })=>{
 
   return(
-    <form>
+  <form>
       <div>
         filter shown with <input 
           value={filter} 
