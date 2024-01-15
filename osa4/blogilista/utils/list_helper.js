@@ -1,7 +1,16 @@
+const blog = require('../models/blog')
+
 const dummy = (blogs) => {
-    // ...
-  }
+    return 1
+}
   
-  module.exports = {
-    dummy
-  }
+const totalLikes = (blogs) => {
+    const reducer = ((sum, blog) => sum + blog.likes)
+    return blogs.reduce(reducer, 0)
+    
+}
+
+module.exports = {
+    dummy,
+    totalLikes
+}
