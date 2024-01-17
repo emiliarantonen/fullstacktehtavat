@@ -5,6 +5,7 @@ blogRouter.get('/', (request, response) => {
   Blog
     .find({})
     .then(blogs => {
+      response.setHeader('Content-Type', 'application/json')
       response.json(blogs)
     })
 })
