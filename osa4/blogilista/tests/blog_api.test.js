@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const supertest = require('supertest')
 const app = require('../app')
+const helper = require('../utils/list_helper')
 
 const api = supertest(app)
 
@@ -92,6 +93,41 @@ test('url missing', async()=>{
     .post('/api/blogs')
     .send(newBlog)
     .expect(400)
+
+})
+
+test('blog can be deleted', async()=>{
+  const blogsAtStart = await helper.blogsInDb()
+  const blogToDelete = blogsAtStart[0]
+
+  const initialResponse = await api.get('/api/blogs')
+  const initialLength = initialResponse.body.length
+
+  await api
+    .delete(`/api/blogs/${blogToDelete.id}`)
+    .expect(204)
+
+  const blogsAtEnd = await helper.blogsInDb()
+
+  expect(blogsAtEnd).toHaveLength(
+    initialLength-1
+  )
+})
+
+test('blog can be updated', async()=>{
+  const blogsAtStart = await helper.blogsInDb()
+  const blogToUpdate = blogsAtStart[0]
+
+  const updatedLikes = blogToUpdate.likes + 1
+  await api
+    .put(`/api/blogs/${blogToUpdate.id}`)
+    .send({ likes: updatedLikes })
+    .expect(200)
+  
+  const blogsAtEnd = await helper.blogsInDb()
+  const updatedBlog = blogsAtEnd.find((blog) => blog.id === blogToUpdate.id)
+
+  expect(updatedBlog.likes).toBe(updatedLikes)
 
 })
 
