@@ -65,7 +65,6 @@ test('likes set to 0 if not provided', async() => {
     .send(newBlog)
   
   const addedBlog = await api.get(`/api/blogs/${response.body.id}`)
-  console.log(addedBlog.body)
   expect(addedBlog.body.likes).toBe(0)
 
 })
