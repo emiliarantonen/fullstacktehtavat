@@ -60,14 +60,19 @@ const mostLikes = (blogs) => {
 }
 
 const blogsInDb = async () => {
-  const notes = await Blog.find({})
-  return notes.map(note => note.toJSON())
+  const blogs = await Blog.find({})
+  return blogs.map(blog => blog.toJSON())
 }
 
 const usersInDb = async () => {
   const users = await User.find({})
   return users.map(u => u.toJSON())
 }
+
+const initialBlogs = [
+  {title: 'root', author: 'author', url: '1234', likes: 5 },
+  {title: 'test', author: 'test', url: '4444', likes: 3 }
+]
 
 module.exports = {
   dummy,
@@ -76,5 +81,6 @@ module.exports = {
   mostBlogs,
   mostLikes,
   blogsInDb,
-  usersInDb
+  usersInDb,
+  initialBlogs
 }
