@@ -1,0 +1,9 @@
+post http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImVtcHB1IiwiaWQiOiI2NWFhNzFjOGY4MGZmOGQ5NTBiN2RjNWQiLCJpYXQiOjE3MDU5OTk2ODJ9.FCjx0BkQNrkIi3SnM4yECaY07ncVEtgpTd1lXJojUIw
+
+{
+    "title": "moi",
+    "author": "emilia",
+    "url": "url"
+}
