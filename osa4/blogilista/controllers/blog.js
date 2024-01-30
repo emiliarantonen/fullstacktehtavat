@@ -1,5 +1,4 @@
 const blogRouter = require('express').Router()
-const logger = require('../utils/logger')
 const Blog = require('../models/blog')
 const jwt = require('jsonwebtoken')
 
@@ -24,7 +23,7 @@ blogRouter.post('/', async(request, response) => {
   const user = request.user
   const token = request.token
   if (!token) {
-    return response.status(401).json({ error: 'token missing' });
+    return response.status(401).json({ error: 'token missing' })
   }
   const decodedToken = jwt.verify(token, process.env.SECRET)
   if (!decodedToken.id) {
