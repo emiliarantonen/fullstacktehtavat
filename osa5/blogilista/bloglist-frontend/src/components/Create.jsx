@@ -1,19 +1,50 @@
-const Create = ({addBlog, newTitle, newAuthor, newURL, handleTitle, handleAuthor, handleURL}) => {
-   return( 
-    <form onSubmit={addBlog}>
+import { useState } from 'react'
+
+const Create = ({addBlog}) => {
+    const [title, setTitle] = useState('')
+    const [author, setAuthor] = useState('')
+    const [url, setURL] = useState('')
+
+    const handleAdd= (event)=>{
+        event.preventDefault()
+        const blog = ({title:title, author:author, url:url})
+        addBlog(blog)
+        setTitle('')
+        setAuthor('')
+        setURL('')
+        
+      }
+      
+      const handleTitle=(event)=>{
+        setTitle(event.target.value)
+      }
+      
+      const handleAuthor=(event)=>{
+        setAuthor(event.target.value)
+      }
+      
+      const handleURL=(event)=>{
+        setURL(event.target.value)
+      }
+      
+   return(
+    <div>
+    <h3>create new</h3>
+    <form onSubmit={handleAdd}>
         <div>
-          title: <input id="title" type="text" value={newTitle} onChange={handleTitle}/>
+          title: <input id="title" type="text" value={title} onChange={handleTitle}/>
         </div>
         <div>
-          author: <input id="author" type="text"value={newAuthor} onChange={handleAuthor}/>
+          author: <input id="author" type="text"value={author} onChange={handleAuthor}/>
         </div>
         <div>
-          url: <input id="url" type="text" value={newURL} onChange={handleURL}/>
+          url: <input id="url" type="text" value={url} onChange={handleURL}/>
         </div>
         <div>
           <button id="submitBlog" type="submit">create</button>
        </div>
-    </form>
+    </form>   
+    </div>
 )}
 
 export default Create
