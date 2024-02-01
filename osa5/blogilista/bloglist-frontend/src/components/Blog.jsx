@@ -24,27 +24,27 @@ const Blog = ({ blog, user, updateLikes, removeBlog }) => {
 
   const handleRemove = () => {
     if (window.confirm(`Remove blog ${blog.title} by ${blog.author}`))
-    removeBlog(blog)
+      removeBlog(blog)
   }
 
 
   return(
-  <div style={blogStyle}>
-    <div style={hideWhenVisible}>
-          {blog.title}
-          <button onClick={() => setVisible(true)}>view</button>
+    <div style={blogStyle}>
+      <div style={hideWhenVisible}>
+        {blog.title}
+        <button onClick={() => setVisible(true)}>view</button>
       </div>
-    <div style={showWhenVisible}>
-    <div>{blog.title} <button onClick={() => setVisible(false)}>hide</button></div>
-    <div>{blog.url}</div>
-    <div>likes {blog.likes} <button onClick={handleLike}> like</button></div>
-    <div>{blog.author}</div>
-    {user && blog.user && (
-        <button onClick={handleRemove}>remove</button>
-      )}
-    
+      <div style={showWhenVisible}>
+        <div>{blog.title} <button onClick={() => setVisible(false)}>hide</button></div>
+        <div>{blog.url}</div>
+        <div>likes {blog.likes} <button onClick={handleLike}> like</button></div>
+        <div>{blog.author}</div>
+        {user && blog.user && (
+          <button onClick={handleRemove}>remove</button>
+        )}
+      </div>
     </div>
-  </div>  
-)}
+
+  )}
 
 export default Blog
