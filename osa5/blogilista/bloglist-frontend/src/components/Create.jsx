@@ -31,13 +31,13 @@ const Create = ({ addBlog }) => {
       <h3>create new</h3>
       <form onSubmit={handleAdd}>
         <div>
-          title: <input id="title" type="text" value={title} onChange={handleTitle}/>
+          title: <input id="title" type="text" value={title} onChange={handleTitle} data-testid='title'/>
         </div>
         <div>
-          author: <input id="author" type="text"value={author} onChange={handleAuthor}/>
+          author: <input id="author" type="text"value={author} onChange={handleAuthor} data-testid='author'/>
         </div>
         <div>
-          url: <input id="url" type="text" value={url} onChange={handleURL}/>
+          url: <input id="url" type="text" value={url} onChange={handleURL} data-testid='url'/>
         </div>
         <div>
           <button id="submitBlog" type="submit">create</button>

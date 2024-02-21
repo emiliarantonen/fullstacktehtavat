@@ -103,11 +103,11 @@ const App = () => {
       ) : (
         <>
           <div>
-            {user.name} logged in <button onClick={handleLogout} type="submit">Logout</button>
+            {user.name} logged in <button id='logoutButton' onClick={handleLogout} type="submit">Logout</button>
           </div>
 
 
-          <Togglable buttonLabel="new blog" ref={blogRef}>
+          <Togglable id='newBlog' buttonLabel="new blog" ref={blogRef}>
             <Create addBlog={addBlog} />
           </Togglable>
           <div>
